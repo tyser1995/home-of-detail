@@ -1,0 +1,101 @@
+@import "tailwindcss";
+
+@theme {
+  /* Fallback values. The live theme comes from src/lib/theme.ts. */
+  --color-ink: #07090c;
+  --color-ink-2: #0d1117;
+  --color-panel: #121821;
+  --color-mist: #9aa7b6;
+  --color-body: #e8edf3;
+  --color-accent: #2ec5e6;
+  --color-on-accent: #07090c;
+  --color-secondary: #e8c26b;
+  /* "white" is the heading/contrast color, so light themes work with the existing utilities. */
+  --color-white: #ffffff;
+
+  --font-sans: var(--font-body);
+  --font-display: var(--font-heading);
+
+  --animate-fade-up: fade-up 0.7s ease-out both;
+
+  @keyframes fade-up {
+    from {
+      opacity: 0;
+      transform: translateY(16px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--color-ink);
+  color: var(--color-body);
+  font-family: var(--font-body), system-ui, sans-serif;
+}
+
+::selection {
+  background: var(--color-accent);
+  color: var(--color-on-accent);
+}
+
+@layer components {
+  .container-x {
+    @apply mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8;
+  }
+  .section {
+    @apply py-16 sm:py-20 lg:py-28;
+  }
+  .eyebrow {
+    @apply inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.22em] text-accent;
+  }
+  .h-display {
+    @apply font-display font-semibold tracking-tight text-balance;
+  }
+  .glass {
+    @apply border border-white/10 bg-white/[0.04] backdrop-blur-md;
+  }
+  .glow-accent {
+    box-shadow: 0 8px 30px -8px color-mix(in srgb, var(--color-accent) 60%, transparent);
+  }
+  .text-gradient {
+    background: linear-gradient(
+      100deg,
+      var(--color-white) 10%,
+      color-mix(in srgb, var(--color-accent) 50%, var(--color-white)) 55%,
+      var(--color-accent) 90%
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .grid-glow {
+    background-image:
+      radial-gradient(ellipse 60% 50% at 50% 0%, color-mix(in srgb, var(--color-accent) 18%, transparent), transparent 70%),
+      linear-gradient(to right, color-mix(in srgb, var(--color-white) 4%, transparent) 1px, transparent 1px),
+      linear-gradient(to bottom, color-mix(in srgb, var(--color-white) 4%, transparent) 1px, transparent 1px);
+    background-size: 100% 100%, 48px 48px, 48px 48px;
+  }
+}
+
+details > summary::-webkit-details-marker {
+  display: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+}
